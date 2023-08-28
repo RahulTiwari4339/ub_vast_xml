@@ -2,21 +2,17 @@ import React, { useState, useRef } from "react";
 import { v4 as uuid } from "uuid";
 import Form from "./Form";
 
-
 const Xml = () => {
   const [clientName, setClientName] = useState();
   const [descUrl, setDescUrl] = useState();
   const [adTags, setAdTags] = useState();
 
-  const [isChecked, setIsChecked] = useState(false);
   const checkbox = useRef();
   const [final, setFinal] = useState([]);
 
   let spiltadtags = adTags;
 
   var encodedUrl = encodeURIComponent(descUrl);
-
-
 
   const updateData = () => {
     let updatetags = spiltadtags.split("\n");
@@ -54,21 +50,6 @@ const Xml = () => {
 
     let concattage = kvSorting.concat(tagwithoutKV);
 
-
-    let extensionbox 
-const handleClick = () => {
-  if (checkbox.current.checked) {
-    extensionbox = `<Extensions>
-    <Extension type="waterfall" fallback_index="0"/>
-</Extensions>`
-  } else {
-    console.log('not check');
-  }
-}
-
-handleClick()
-
-
     let vast = [];
     for (let i = 0; i < concattage.length; i++) {
       let create_uuid = uuid();
@@ -84,14 +65,16 @@ handleClick()
             <Impression>
                 <![CDATA[ about:blank ]]>
             </Impression>
-              ${extensionbox}
+            <Extensions>
+            <Extension type="waterfall" fallback_index="0"/>
+        </Extensions>
         </Wrapper>
         </Ad>
         `;
       vast.push(data);
     }
 
-    let jointag = vast.join("")
+    let jointag = vast.join("");
     final.push(jointag);
 
     const xmlString = `<?xml version="1.0" encoding="UTF-8"?>
@@ -113,8 +96,6 @@ handleClick()
   const SubmitData = (e) => {
     e.preventDefault();
     updateData();
-
-    
   };
 
   return (
@@ -124,8 +105,6 @@ handleClick()
         setClientName={setClientName}
         setAdTags={setAdTags}
         setDescUrl={setDescUrl}
-        setIsChecked= {setIsChecked}
-        checkbox={checkbox}
       />
     </>
   );

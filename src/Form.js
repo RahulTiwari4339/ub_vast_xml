@@ -57,12 +57,7 @@ const Form = (props) => {
                   Ad Tags
                 </label>
 
-               <div>
-               <input type="checkbox" value= {props.isChecked} id="extension" 
-                 onChange={(e) => props.setIsChecked(e.target.value)}
-                 ref={props.checkbox}
-               /> Enable Extension 
-               </div>
+               
 
                 <textarea
                   className="form-control"
